@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+    <title>Reclamos</title>
+</head>
+<body>
+
+    <main class="container">
+            <h1 class="text-center mt-5">Formulario de reclamos.</h1>
+            <div class="d-flex justify-content-center">
+                <form class="col-12 col-lg-6" id="formulario">
+                <label for="nombre" class="form-label">Nombre:</label>
+                <input type="text" class="form-control" name="nombre" required value="Nelson">
+                <label for="correo" class="form-label">Correo:</label>
+                <input type="email" class="form-control" name="correo" required value="mail@mail.com">
+                <label for="asunto" class="form-label">Asunto:</label>
+                <input type="text" class="form-control" name="asunto" required value="asunto reclamo">
+                <label for="reclamo" class="form-label">Reclamo:</label>
+                <input type="text" class="form-control" name="reclamo" required value="esto es un reclamo">
+                <button type="submit" class="btn btn-primary mt-3">Enviar Reclamo</button>
+                <button type="reset" class="btn btn-warning mt-3">Limpiar</button>
+            </form>
+            </div>
+            
+        </section>
+    </main>
+
+    <script>
+        let form = document.querySelector("#formulario");
+
+        form.addEventListener("submit", (event) => {
+            event.preventDefault();
+            console.log(new FormData(form))
+
+
+            fetch("http://localhost:3000/reclamos", {
+                method: "POST",
+                body: new FormData(form),
+                redirect: "follow"
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log(data.message);
+            })
+            .catch(error => console.log(error))
+        })
+
+    </script>
+    
+</body>
+</html>
