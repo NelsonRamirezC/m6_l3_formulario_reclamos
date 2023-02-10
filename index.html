@@ -15,13 +15,13 @@
             <div class="d-flex justify-content-center">
                 <form class="col-12 col-lg-6" id="formulario">
                 <label for="nombre" class="form-label">Nombre:</label>
-                <input type="text" class="form-control" name="nombre" required value="Nelson">
+                <input type="text" class="form-control" name="nombre" required>
                 <label for="correo" class="form-label">Correo:</label>
-                <input type="email" class="form-control" name="correo" required value="mail@mail.com">
+                <input type="email" class="form-control" name="correo" required>
                 <label for="asunto" class="form-label">Asunto:</label>
-                <input type="text" class="form-control" name="asunto" required value="asunto reclamo">
+                <input type="text" class="form-control" name="asunto" required>
                 <label for="reclamo" class="form-label">Reclamo:</label>
-                <input type="text" class="form-control" name="reclamo" required value="esto es un reclamo">
+                <input type="text" class="form-control" name="reclamo" required>
                 <button type="submit" class="btn btn-primary mt-3">Enviar Reclamo</button>
                 <button type="reset" class="btn btn-warning mt-3">Limpiar</button>
             </form>
@@ -35,8 +35,6 @@
 
         form.addEventListener("submit", (event) => {
             event.preventDefault();
-            console.log(new FormData(form))
-
 
             fetch("http://localhost:3000/reclamos", {
                 method: "POST",
@@ -46,6 +44,8 @@
             .then(response => response.json())
             .then(data => {
                 console.log(data.message);
+                alert(data.message)
+                form.reset();
             })
             .catch(error => console.log(error))
         })

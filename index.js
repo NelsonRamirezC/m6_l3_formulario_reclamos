@@ -9,12 +9,23 @@ app.use(express.json());
 app.use(express.urlencoded({extended:false}));
 app.use(formidable());
 
+
+app.get("/", (req, res) => {
+    res.sendFile(__dirname+"/index.html")
+})
+
 app.post("/reclamos", (req, res) => {
     let {nombre, correo, asunto, reclamo} = req.fields
     
-    sendMail(nombre, correo, asunto, reclamo);
+    sendMail(nombre, correo, asunto, reclamo)
+        .then(respuesta => {
+            res.send({code: 200, message: respuesta});
+        })
+        .catch(error =>{
+            res.status(500).send({code: 500, message: error})
+        })
 
-    res.send({code: 200, message: "Reclamo recibido"});
+    
 })
 
 
